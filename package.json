@@ -19,6 +19,7 @@
   "dependencies": {
     "aws-sdk": "^2.1350.0",
     "axios": "^1.3.4",
+    "axios-retry": "^3.4.0",
     "sound-play": "^1.1.0",
     "ts-node": "^10.9.1"
   }

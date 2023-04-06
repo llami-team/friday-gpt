@@ -1,4 +1,6 @@
 import axios from "axios";
+import axiosRetry from "axios-retry";
+
 import { logger } from "../utils/logger.js";
 
 export const openai = axios.create({
@@ -6,6 +8,14 @@ export const openai = axios.create({
   headers: {
     "Content-Type": "application/json",
     Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
+  },
+});
+
+axiosRetry(openai, {
+  retries: 3,
+  retryCondition: (error) => {
+    logger(`네트워크 요청 불량으로 재시도 중입니다. (에러코드 ${error.code}}`);
+    return true;
   },
 });
 
