@@ -4,20 +4,16 @@ import sound from "sound-play";
 
 export const speak = async (text: string) => {
   try {
-    await new Promise<void>((resolve, reject) => {
+    await new Promise<void>((resolve) => {
       const audioFile = "./dist/_.wav";
-      // This example requires environment variables named "SPEECH_KEY" and "SPEECH_REGION"
       const speechConfig = sdk.SpeechConfig.fromSubscription(
         process.env.AZURE_SPEECH_KEY,
         process.env.AZURE_SPEECH_REGION
       );
       const audioConfig = sdk.AudioConfig.fromAudioFileOutput(audioFile);
-
-      // The language of the voice that speaks.
       speechConfig.speechSynthesisVoiceName = process.env.AZURE_SPEECH_VOICE;
 
-      // Create the speech synthesizer.
-      var synthesizer = new sdk.SpeechSynthesizer(speechConfig, audioConfig);
+      let synthesizer = new sdk.SpeechSynthesizer(speechConfig, audioConfig);
 
       synthesizer.speakTextAsync(
         text,
@@ -29,7 +25,7 @@ export const speak = async (text: string) => {
             const absoultePath = fs.realpathSync(audioFile);
             await sound.play(absoultePath, 1);
           } else {
-            console.error(
+            throw new Error(
               "Speech synthesis canceled, " +
                 result.errorDetails +
                 "\nDid you set the speech resource key and region values?"
@@ -37,7 +33,7 @@ export const speak = async (text: string) => {
           }
           resolve();
         },
-        function (err) {
+        (err) => {
           console.trace("err - " + err);
           synthesizer.close();
           synthesizer = null;
