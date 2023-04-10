@@ -1,19 +1,15 @@
 # 🔮 Friday-GPT
 > 📜 이 프로젝트는 GPT 에 R&R을 부여해서 단계 별로 프로그래밍을 진행 시키는 프로젝트입니다.
 
-<br />
-
-[![Watch the video](https://i.imgur.com/MkCYunz.png)](hhttps://twitter.com/hmartapp/status/1645252545668067328)
-
-
+> (⚠️ **_Experimental_** 이 프로젝트는 현재 실험 중에 있으며, Open A.I 토큰을 소모할 수 있으므로 실행 시 주의가 필요합니다.)
 
 <br />
 
-## ⚠️ **_Experimental_**
+[![Watch the video](https://i.imgur.com/MkCYunz.png)](https://twitter.com/hmartapp/status/1645252545668067328)
 
-> 이 프로젝트는 현재 실험 중에 있으며, Open A.I 토큰을 소모할 수 있으므로 실행 시 개발자의 주의가 필요합니다.
 
-<br/>
+
+<br />
 
 ## 💬 프로젝트 설명
 
@@ -68,6 +64,12 @@ npm i
 ```
 
 > .env 파일을 프로젝트 상단에 생성한 후 아래 내용을 체워줍니다.
+
+> ***OPENAI_API_KEY*** 는 동작에 필수적이며, 여기서 발급하실 수 있습니다. [Open A.I Get API keys](https://platform.openai.com/account/api-keys)
+
+> ***AZURE_SPEECH_KEY*** 를 입력해주면 TTS 를 이용해서 진행과정을 알려줍니다.  (정보를 넣지 않으셔도 됩니다.)
+
+> ***AZURE_**** 관련 입력 값은 여기서 발급하실 수 있습니다. [Azure Speech Services](https://portal.azure.com/?quickstart=true#view/Microsoft_Azure_ProjectOxford/CognitiveServicesHub/~/SpeechServices)
 
 ```bash
 OPENAI_API_KEY=
