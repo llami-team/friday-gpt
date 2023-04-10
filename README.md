@@ -1,8 +1,17 @@
 # 🔮 Friday-GPT
-
 > 📜 이 프로젝트는 GPT 에 R&R을 부여해서 단계 별로 프로그래밍을 진행 시키는 프로젝트입니다.
 
-⚠️ **_Experimental_** 이 프로젝트는 실험 중에 있으며, Open A.I 토큰을 많이 소모할 수 있으므로 개발자의 주의가 필요합니다.
+<br />
+
+[![Watch the video](https://i.imgur.com/MkCYunz.png)](hhttps://twitter.com/hmartapp/status/1645252545668067328)
+
+
+
+<br />
+
+## ⚠️ **_Experimental_**
+
+> 이 프로젝트는 현재 실험 중에 있으며, Open A.I 토큰을 소모할 수 있으므로 실행 시 개발자의 주의가 필요합니다.
 
 <br/>
 
