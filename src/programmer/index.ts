@@ -28,11 +28,11 @@ export const doProgrammingReview = async () => {
   const reviewRequest = await doLeadReviewRequest({ evangelist, lead });
   console.log(reviewRequest);
 
-  const reviewRequestFilePath = "./result/reveiw-request-ver-1.txt";
+  const reviewRequestFilePath = "./result/review-request-ver-1.txt";
   fs.writeFileSync(reviewRequestFilePath, reviewRequest);
 
   logger(
-    "리뷰 요청 생성 작업이 완료되었습니다. ./result/reveiw-request-ver-1.txt 파일을 확인해주세요."
+    "리뷰 요청 생성 작업이 완료되었습니다. ./result/review-request-ver-1.txt 파일을 확인해주세요."
   );
   await speak(
     "리뷰 요청 생성 작업이 완료되었습니다. 리뷰 요청을 확인해주세요."
