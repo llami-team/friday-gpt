@@ -40,9 +40,9 @@ npm i
 
 ```bash
 OPENAI_API_KEY=
-AWS_REGION=
-AWS_IDENTITY_POOL_ID=
-AWS_SDK_JS_SUPPRESS_MAINTENANCE_MODE_MESSAGE=1
+AZURE_SPEECH_KEY=
+AZURE_SPEECH_REGION=
+AZURE_SPEECH_VOICE=ko-KR-SeoHyeonNeural
 ```
 
 | src/input.ts 파일을 열어서 userRequest 변수에 원하는 개발 방향을 설정합니다.

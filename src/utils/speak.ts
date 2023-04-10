@@ -1,50 +1,49 @@
-import AWS from "aws-sdk";
+import sdk from "microsoft-cognitiveservices-speech-sdk";
 import fs from "fs";
 import sound from "sound-play";
 
-if (process.env.AWS_REGION) AWS.config.region = process.env.AWS_REGION;
-if (process.env.AWS_IDENTITY_POOL_ID)
-  AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-    IdentityPoolId: process.env.AWS_IDENTITY_POOL_ID,
-  });
-
-const polly = process.env.AWS_IDENTITY_POOL_ID
-  ? new AWS.Polly({ apiVersion: "2016-06-10" })
-  : null;
-
-export const speak = async (text: string, lang: "ko-KR" | "en-US") => {
+export const speak = async (text: string) => {
   try {
     await new Promise<void>((resolve, reject) => {
-      const params = {
-        OutputFormat: "mp3",
-        Text: `${text}`,
-        VoiceId: lang === "ko-KR" ? "Seoyeon" : "Ivy",
-      };
+      const audioFile = "./dist/_.wav";
+      // This example requires environment variables named "SPEECH_KEY" and "SPEECH_REGION"
+      const speechConfig = sdk.SpeechConfig.fromSubscription(
+        process.env.AZURE_SPEECH_KEY,
+        process.env.AZURE_SPEECH_REGION
+      );
+      const audioConfig = sdk.AudioConfig.fromAudioFileOutput(audioFile);
 
-      if (!polly) {
-        resolve();
-        return;
-      }
+      // The language of the voice that speaks.
+      speechConfig.speechSynthesisVoiceName = process.env.AZURE_SPEECH_VOICE;
 
-      polly.synthesizeSpeech(params, async (err, data) => {
-        if (err) {
-          console.log(err, err.stack);
-          reject(err);
-        } else if (data) {
-          if (data.AudioStream) {
-            const uInt8Array = new Uint8Array(data.AudioStream as Buffer);
-            const arrayBuffer = uInt8Array.buffer;
+      // Create the speech synthesizer.
+      var synthesizer = new sdk.SpeechSynthesizer(speechConfig, audioConfig);
 
-            // nodejs save to wav
-            fs.writeFileSync(`./dist/_.mp3`, Buffer.from(arrayBuffer));
-            await new Promise((resolve) => setTimeout(resolve, 1000));
+      synthesizer.speakTextAsync(
+        text,
+        async (result) => {
+          synthesizer.close();
+          synthesizer = null;
 
-            const absoultePath = fs.realpathSync("./dist/_.mp3");
+          if (result.reason === sdk.ResultReason.SynthesizingAudioCompleted) {
+            const absoultePath = fs.realpathSync(audioFile);
             await sound.play(absoultePath, 1);
-            resolve();
+          } else {
+            console.error(
+              "Speech synthesis canceled, " +
+                result.errorDetails +
+                "\nDid you set the speech resource key and region values?"
+            );
           }
+          resolve();
+        },
+        function (err) {
+          console.trace("err - " + err);
+          synthesizer.close();
+          synthesizer = null;
+          resolve();
         }
-      });
+      );
     });
   } catch (e) {}
 };

@@ -9,7 +9,7 @@ import fs from "node:fs";
 
 export const doArchitect = async () => {
   logger("요청사항에 따른 개발 기획을 진행 중 입니다...");
-  await speak("요청사항에 따른 개발 기획을 진행 중 입니다...", "ko-KR");
+  await speak("요청사항에 따른 개발 기획을 진행 중 입니다...");
   let reviewCount = 1;
 
   const preDialect = await doDialecticSynthese(userRequest, (these) => {
@@ -34,8 +34,7 @@ export const doArchitect = async () => {
         `개발 기획이 완료되었습니다. (${reviewCount} 번째 검토 만에 완료)`
       );
       await speak(
-        `개발 기획이 완료되었습니다. ${reviewCount} 번째 검토 만에 완료되었습니다.`,
-        "ko-KR"
+        `개발 기획이 완료되었습니다. ${reviewCount} 번째 검토 만에 완료되었습니다.`
       );
       fs.writeFileSync(`./result/architect-ver-${reviewCount}.txt`, synthese);
       return synthese;
@@ -60,6 +59,9 @@ export const doDialectic = async ({
     logger(
       `개발 기획을 추가로 보완하고 있습니다... (${reviewCount} 번째 검토)`
     );
+    await speak(
+      `개발 기획을 추가로 보완하고 있습니다... (${reviewCount} 번째 검토)`
+    );
     fs.writeFileSync(`./result/architect-ver-${reviewCount}.txt`, these);
     const antithese = await doArchitectAntithese(these);
     console.log(antithese);
@@ -68,7 +70,7 @@ export const doDialectic = async ({
 
     if (whatAntitheseDo) {
       logger(whatAntitheseDo);
-      await speak(whatAntitheseDo, "ko-KR");
+      await speak(whatAntitheseDo);
     } else {
       logger("개발 기획을 보완하는 중입니다...");
     }
@@ -80,7 +82,7 @@ export const doDialectic = async ({
     const whatSyntheseDo = findWhatIdo(synthese);
     if (whatSyntheseDo) {
       logger(whatSyntheseDo);
-      await speak(whatSyntheseDo, "ko-KR");
+      await speak(whatSyntheseDo);
     } else {
       logger("개발 기획을 검토하는 중입니다...");
     }
@@ -104,7 +106,7 @@ export const doDialecticSynthese = async (
   const whatTheseDo = findWhatIdo(these);
   if (whatTheseDo) {
     logger(whatTheseDo);
-    await speak(whatTheseDo, "ko-KR");
+    await speak(whatTheseDo);
   } else {
     logger("개발 기획을 세우는 중입니다...");
   }
@@ -119,7 +121,7 @@ export const doDialecticSynthese = async (
 
   if (whatAntitheseDo) {
     logger(whatAntitheseDo);
-    await speak(whatAntitheseDo, "ko-KR");
+    await speak(whatAntitheseDo);
   } else {
     logger("개발 기획을 보완하는 중입니다...");
   }
@@ -131,7 +133,7 @@ export const doDialecticSynthese = async (
   const whatSyntheseDo = findWhatIdo(synthese);
   if (whatSyntheseDo) {
     logger(whatSyntheseDo);
-    await speak(whatSyntheseDo, "ko-KR");
+    await speak(whatSyntheseDo);
   } else {
     logger("개발 기획을 검토하는 중입니다...");
   }

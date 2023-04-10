@@ -10,17 +10,19 @@
     "architect": "tsc && node -r dotenv/config dist/architect.js",
     "evangelist": "tsc && node -r dotenv/config dist/evangelist.js",
     "programmer": "tsc && node -r dotenv/config dist/programmer.js",
-    "reviewer": "tsc && node -r dotenv/config dist/reviewer.js"
+    "reviewer": "tsc && node -r dotenv/config dist/reviewer.js",
+    "new-tts": "tsc && node -r dotenv/config dist/azureSpeak.js"
   },
   "devDependencies": {
+    "@types/node": "^18.15.11",
     "chalk": "^5.2.0",
-    "dotenv": "^16.0.3"
+    "dotenv": "^16.0.3",
+    "typescript": "^5.0.4"
   },
   "dependencies": {
-    "aws-sdk": "^2.1350.0",
     "axios": "^1.3.4",
     "axios-retry": "^3.4.0",
-    "sound-play": "^1.1.0",
-    "ts-node": "^10.9.1"
+    "microsoft-cognitiveservices-speech-sdk": "^1.27.0",
+    "sound-play": "^1.1.0"
   }
 }
