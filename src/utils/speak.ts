@@ -2,7 +2,28 @@ import sdk from "microsoft-cognitiveservices-speech-sdk";
 import fs from "fs";
 import sound from "sound-play";
 
-export const speak = async (text: string) => {
+const speakQueue: string[] = [];
+
+export const speak = (text: string) => {
+  if (speakQueue.length > 0) {
+    speakQueue.push(text);
+  } else {
+    speakQueue.push(text);
+    processQueue();
+  }
+};
+
+export const processQueue = async () => {
+  if (speakQueue.length > 0) {
+    const text = speakQueue[0];
+    await actualSpeak(text);
+    speakQueue.shift();
+
+    await processQueue();
+  }
+};
+
+export const actualSpeak = async (text: string) => {
   try {
     await new Promise<void>((resolve) => {
       const audioFile = "./dist/_.wav";

@@ -6,7 +6,7 @@ import { speak } from "../utils/speak.js";
 
 export const doTechEvangelist = async () => {
   logger("테크 에반젤리스트에 의한 기획서 보충이 진행 중입니다...");
-  await speak("테크 에반젤리스트에 의한 기획서 보충이 진행 중입니다...");
+  speak("테크 에반젤리스트에 의한 기획서 보충이 진행 중입니다...");
 
   const resultFolderPath = "./result";
   const resultFiles = await fs.promises.readdir(resultFolderPath);
@@ -32,5 +32,5 @@ export const doTechEvangelist = async () => {
     `----USER REQUEST\n${userRequest}\n${evangelist}`
   );
   logger("테크 에반젤리스트에 의한 기획서 보충이 완료되었습니다.");
-  await speak("테크 에반젤리스트에 의한 기획서 보충이 완료되었습니다.");
+  speak("테크 에반젤리스트에 의한 기획서 보충이 완료되었습니다.");
 };
