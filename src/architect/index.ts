@@ -1,23 +1,62 @@
+import { config } from "../input.js";
 import { userRequest } from "../input.js";
 import { logger } from "../utils/logger.js";
 import { findIsGoodToGo, findWhatIdo } from "../utils/match.js";
 import { speak } from "../utils/speak.js";
 import { doArchitectAntithese } from "./antithese.js";
+import { doArchitectSelection } from "./selection.js";
 import { doArchitectSynthese } from "./synthese.js";
 import { doArchitectThese } from "./these.js";
 import fs from "node:fs";
 
 export const doArchitect = async () => {
-  logger("요청사항에 따른 개발 기획을 진행 중 입니다...");
-  speak("요청사항에 따른 개발 기획을 진행 중 입니다...");
+  logger(
+    `요청사항에 따른 ${config.architect.draftCount}가지 각기 다른 기획 시안을 생성 중입니다.\n`
+  );
+  speak(
+    `요청사항에 따른 ${config.architect.draftCount}가지 각기 다른 기획 시안을 생성 중입니다.`
+  );
+
+  const drafts: string[] = [];
+  for (let i = 1; i <= config.architect.draftCount; i++) {
+    const draft = await doArchitectThese(userRequest);
+    drafts.push(draft);
+
+    const whatTheseDo = findWhatIdo(draft);
+    console.log(draft);
+    if (whatTheseDo) {
+      logger(`시안 ${i} 요약: ${whatTheseDo}`);
+      speak(`시안 ${i} 요약: ${whatTheseDo}`);
+    } else {
+      logger(`개발 기획을 세우는 중입니다...`);
+    }
+
+    fs.writeFileSync(`./result/architect-draft-${i}.txt`, draft);
+  }
+
+  let bestDraftNumber = 1;
+
+  if (config.architect.draftCount !== 1) {
+    const bestDraftSelection = await doArchitectSelection(drafts);
+    console.log(bestDraftSelection);
+
+    try {
+      const json = "{" + bestDraftSelection?.split("{")?.[1]?.split("```")[0];
+      const parsed = JSON.parse(json);
+      bestDraftNumber = parsed.bestDraftNumber;
+      logger(`${parsed.bestDraftNumber}번 시안이 선택되었습니다.`);
+      speak(`${parsed.bestDraftNumber}번 시안이 선택되었습니다.`);
+
+      bestDraftNumber = parsed.bestDraftNumber - 1;
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
   let reviewCount = 1;
+  let isGoodToGo = false;
+  let synthese = drafts[bestDraftNumber];
 
-  const preDialect = await doDialecticSynthese(userRequest, (these) => {
-    fs.writeFileSync(`./result/architect-ver-${reviewCount++}.txt`, these);
-  });
-
-  let isGoodToGo = preDialect.isGoodToGo;
-  let synthese = preDialect.synthese;
   while (true) {
     const dialect = await doDialectic({
       isGoodToGo,
