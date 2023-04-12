@@ -69,6 +69,7 @@ npm install
 > **\*AZURE\_\*\*** 관련 입력 값은 여기서 발급하실 수 있습니다. [Azure Speech Services](https://portal.azure.com/?quickstart=true#view/Microsoft_Azure_ProjectOxford/CognitiveServicesHub/~/SpeechServices)
 
 ```bash
+OPENAI_CHAT_MODEL=gpt-3.5-turbo # 또는 gpt-4
 OPENAI_API_KEY=
 AZURE_SPEECH_KEY=
 AZURE_SPEECH_REGION=
@@ -91,6 +92,13 @@ npm run dev
 > 모든 결과파일은 result 폴더 안에 생성됩니다.
 
 <br />
+
+## ✨ Special Thanks
+
+- ***[@antegral](https://github.com/antegral)*** 프라이데이 프로젝트를 위해 GPT-4 테스트 계정을 공유해주셨습니다 감사드립니다!
+
+<br />
+
 
 ## ✅ 라이센스
 

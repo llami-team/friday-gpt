@@ -40,7 +40,7 @@ export const chat = async (option: {
 
   try {
     const { data } = await openai.post("/chat/completions", {
-      model: "gpt-3.5-turbo",
+      model: process.env.OPENAI_CHAT_MODEL ?? "gpt-3.5-turbo",
       messages,
     });
 
