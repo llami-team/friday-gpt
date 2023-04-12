@@ -30,8 +30,10 @@ export const chat = async (option: {
 }) => {
   const { messages, nested } = option;
 
-  if (nested) {
-    logger(`현재 ${nested}번째 ChatGPT 로 이어지는 호출 중 입니다.`);
+  if (nested !== undefined) {
+    logger(
+      `현재 Open A.I 의 메세지가 길어서 ${nested}번째 추가 호출 중 입니다.`
+    );
     if (nested > 10) {
       logger("debug", { messages });
       throw new Error("ChatGPT 호출이 너무 많습니다.");
