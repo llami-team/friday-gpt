@@ -10,8 +10,7 @@
     "architect": "tsc && node -r dotenv/config dist/architect.js",
     "evangelist": "tsc && node -r dotenv/config dist/evangelist.js",
     "programmer": "tsc && node -r dotenv/config dist/programmer.js",
-    "reviewer": "tsc && node -r dotenv/config dist/reviewer.js",
-    "new-tts": "tsc && node -r dotenv/config dist/azureSpeak.js"
+    "reviewer": "tsc && node -r dotenv/config dist/reviewer.js"
   },
   "devDependencies": {
     "@types/node": "^18.15.11",

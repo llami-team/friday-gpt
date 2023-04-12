@@ -1,5 +1,5 @@
 export const userRequest =
-  "키워드를 하나 입력받은다음 youtube.com 에서 해당 키워드의 영상 5개를 다운받는 프로그램을 Typescript 로 작성해줘";
+  "구글 트랜드에서 한국인들의 실시간 인기검색어를 10건 획득할 수 있는 코드를 Typescript 로 작성해줘";
 
 export const config = {
   architect: {
