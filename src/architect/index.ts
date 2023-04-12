@@ -48,9 +48,7 @@ export const doArchitect = async () => {
       speak(`${parsed.bestDraftNumber}번 시안이 선택되었습니다.`);
 
       bestDraftNumber = parsed.bestDraftNumber - 1;
-    } catch (e) {
-      console.log(e);
-    }
+    } catch (e) {}
   }
 
   let reviewCount = 1;
