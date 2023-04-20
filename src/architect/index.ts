@@ -1,4 +1,4 @@
-import { config } from "../input.js";
+import { countConfig } from "../input.js";
 import { userRequest } from "../input.js";
 import { logger } from "../utils/logger.js";
 import { findIsGoodToGo, findWhatIdo } from "../utils/match.js";
@@ -11,14 +11,14 @@ import fs from "node:fs";
 
 export const doArchitect = async () => {
   logger(
-    `요청사항에 따른 ${config.architect.draftCount}가지 각기 다른 기획 시안을 생성 중입니다.\n`
+    `요청사항에 따른 ${countConfig.architect.draftCount}가지 각기 다른 기획 시안을 생성 중입니다.\n`
   );
   speak(
-    `요청사항에 따른 ${config.architect.draftCount}가지 각기 다른 기획 시안을 생성 중입니다.`
+    `요청사항에 따른 ${countConfig.architect.draftCount}가지 각기 다른 기획 시안을 생성 중입니다.`
   );
 
   const drafts: string[] = [];
-  for (let i = 1; i <= config.architect.draftCount; i++) {
+  for (let i = 1; i <= countConfig.architect.draftCount; i++) {
     const draft = await doArchitectThese(userRequest);
     drafts.push(draft);
 
@@ -36,7 +36,7 @@ export const doArchitect = async () => {
 
   let bestDraftNumber = 1;
 
-  if (config.architect.draftCount !== 1) {
+  if (countConfig.architect.draftCount !== 1) {
     const bestDraftSelection = await doArchitectSelection(drafts);
     console.log(bestDraftSelection);
 
