@@ -89,6 +89,12 @@ export const userRequest =
 npm run dev
 ```
 
+> 또는 다음과 같이 커맨드라인에서 prompt를 붙일 수도 있습니다.
+
+```
+npm run dev 여러가지 순열들을 제공해주는 Typescript 라이브러리를 제공해 줘
+```
+
 > 모든 결과파일은 result 폴더 안에 생성됩니다.
 
 <br />
