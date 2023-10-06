@@ -1,7 +1,6 @@
 import { userRequest } from './input.js'
 import { logger } from './utils/logger.js'
 import fs from 'node:fs'
-
 ;(async () => {
   if (!fs.existsSync('./result')) fs.mkdirSync('./result')
 
