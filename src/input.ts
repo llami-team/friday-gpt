@@ -2,6 +2,12 @@ import { cli } from "cleye";
 import { input, password } from "@inquirer/prompts";
 import { logger } from "./utils/logger.js";
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
+import path from "node:path";
+import { dirname } from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const argv = cli({
   name: "friday",
@@ -16,14 +22,13 @@ const argv = cli({
 });
 
 let userRequest = argv._.join(" ");
+const configPath = path.join(__dirname, "../", ".fridayconfig.json");
 
-if (existsSync("./.fridayconfig.json")) {
-  const config = JSON.parse(readFileSync("./.fridayconfig.json", "utf-8"));
+if (existsSync(configPath)) {
+  const config = JSON.parse(readFileSync(configPath, "utf-8"));
   if (config.OPENAI_API_KEY) process.env.OPENAI_API_KEY = config.OPENAI_API_KEY;
   if (config.OPENAI_CHAT_MODEL)
     process.env.OPENAI_CHAT_MODEL = config.OPENAI_CHAT_MODEL;
-
-  console.log("loaded!", config);
 }
 
 // If OPENAI_API_KEY is empty, ask for it
@@ -71,7 +76,7 @@ if (userRequest === "") {
 }
 
 writeFileSync(
-  "./.fridayconfig.json",
+  configPath,
   JSON.stringify(
     {
       OPENAI_API_KEY: process.env.OPENAI_API_KEY,
