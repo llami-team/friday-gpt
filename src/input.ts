@@ -1,24 +1,23 @@
-import { cli } from 'cleye';
-import { version } from '../package.json';
-import { commandName } from './helpers/constants';
+import { cli } from "cleye";
 
 const argv = cli({
-        name: commandName,
-        version: version,
-        flags: {
-            prompt: {
-                type: String,
-                description: 'Prompt to run',
-                alias: 'p',
-            },
-        }
-})
+  name: "friday",
+  version: "0.0.1",
+  flags: {
+    prompt: {
+      type: String,
+      description: "Prompt to run",
+      alias: "p",
+    },
+  },
+});
 
-let userRequest = argv._.join(' ');
+let userRequest = argv._.join(" ");
 
 // If userRequest is empty, use the provided default value
 if (userRequest === "") {
-    userRequest = "키워드를 하나 입력받은다음 youtube.com 에서 해당 키워드의 영상 5개를 다운받는 프로그램을 Typescript 로 작성해줘";
+  userRequest =
+    "키워드를 하나 입력받은다음 youtube.com 에서 해당 키워드의 영상 5개를 다운받는 프로그램을 Typescript 로 작성해줘";
 }
 
 export { userRequest };
