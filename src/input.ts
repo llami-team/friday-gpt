@@ -83,9 +83,9 @@ if (!isConfigFileExist) {
     process.env.AZURE_SPEECH_KEY === undefined ||
     process.env.AZURE_SPEECH_KEY === ''
   ) {
-    logger(`Azure Speech API 키를 입력하시면 인공지능이 음성으로 답변합니다.`)
+    logger(`\nAzure Speech API 키를 입력하시면 인공지능이 음성으로 답변합니다.`)
     logger(
-      `키 발급 페이지: https://portal.azure.com/?quickstart=true#view/Microsoft_Azure_ProjectOxford/CognitiveServicesHub/~/SpeechServices`
+      `키 발급 페이지: https://portal.azure.com/?quickstart=true#view/Microsoft_Azure_ProjectOxford/CognitiveServicesHub/~/SpeechServices\n`
     )
     const isNeedAzureSpeech = await select({
       message: 'Azure Speech API 키를 입력하고 TTS를 사용하시겠습니까?',
