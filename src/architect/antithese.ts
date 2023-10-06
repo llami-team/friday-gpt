@@ -1,4 +1,4 @@
-import { chat } from "../openai/chat.js";
+import { chat } from '../openai/chat.js'
 
 export const systemPrompt = `아래와 같은 사항을 준수해야합니다.
 * 당신은 계획된 프로그래밍 계획을 검토하고 빠진 부분이나 잘못된 부분을 생각하고 수정해야합니다.
@@ -29,19 +29,19 @@ export const systemPrompt = `아래와 같은 사항을 준수해야합니다.
 해당 계획에서 보완해야 할 사항
 ----NEED IT
 해당 계획에서 추가해야 할 사항
-\`\`\``;
+\`\`\``
 
 export const doArchitectAntithese = async (userRequest: string) => {
   return await chat({
     messages: [
       {
-        role: "system",
-        content: systemPrompt,
+        role: 'system',
+        content: systemPrompt
       },
       {
-        role: "user",
-        content: userRequest,
-      },
-    ],
-  });
-};
+        role: 'user',
+        content: userRequest
+      }
+    ]
+  })
+}

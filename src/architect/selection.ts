@@ -1,4 +1,4 @@
-import { ChatMessage, chat } from "../openai/chat.js";
+import { ChatMessage, chat } from '../openai/chat.js'
 
 export const systemPrompt = `아래와 같은 사항을 준수해야합니다.
 - 응답은 JSON 형태로 답하되, 가장 나은 시안의 번호를 bestDraftNumber 키에 할당해야합니다. (ex. 1, 2, 3, 4, 5)
@@ -30,22 +30,22 @@ export const systemPrompt = `아래와 같은 사항을 준수해야합니다.
 }
 \`\`\`
 
-웅답을 보내주실때 JSON 형태로 위 규격을 준수한 응답을 입력해주세요.`;
+웅답을 보내주실때 JSON 형태로 위 규격을 준수한 응답을 입력해주세요.`
 
 export const doArchitectSelection = async (drafts: string[]) => {
   return await chat({
     messages: [
       {
-        role: "system",
-        content: systemPrompt,
+        role: 'system',
+        content: systemPrompt
       },
       ...drafts.map(
         (draft, index) =>
           ({
-            role: "user",
-            content: `//${index + 1}번 시안\n${draft}`,
-          } as ChatMessage)
-      ),
-    ],
-  });
-};
+            role: 'user',
+            content: `//${index + 1}번 시안\n${draft}`
+          }) as ChatMessage
+      )
+    ]
+  })
+}

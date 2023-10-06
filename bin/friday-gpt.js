@@ -1,2 +1,2 @@
 #!/usr/bin/env node
-import "../dist/dev.js";
+import '../dist/dev.js'

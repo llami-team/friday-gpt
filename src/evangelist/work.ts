@@ -1,4 +1,4 @@
-import { chat } from "../openai/chat.js";
+import { chat } from '../openai/chat.js'
 
 export const systemPrompt = `아래와 같은 사항을 준수해야합니다.
 * 당신은 이미 완성된 개발 기획서를 받아서 해당 개발서로 개발 시 필요한 기술이나 사용을 고려해볼만한 함수나 기술 등 상세 스펙 등을 체워넣는 테크 에반젤리스트 역할을 수행합니다.
@@ -26,19 +26,19 @@ A.I 가 계획에 고민했던 내용
 A.I 가 체크해야 한다고 판단한 내용
 ----NEED IT
 A.I 가 추가가 필요하다고 판단한 내용
-\`\`\``;
+\`\`\``
 
 export const doTechEvangelistWork = async (architect: string) => {
   return await chat({
     messages: [
       {
-        role: "system",
-        content: systemPrompt,
+        role: 'system',
+        content: systemPrompt
       },
       {
-        role: "user",
-        content: architect,
-      },
-    ],
-  });
-};
+        role: 'user',
+        content: architect
+      }
+    ]
+  })
+}

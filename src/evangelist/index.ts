@@ -1,36 +1,36 @@
-import fs from "fs";
-import { userRequest } from "../input.js";
-import { logger } from "../utils/logger.js";
-import { doTechEvangelistWork } from "./work.js";
-import { speak } from "../utils/speak.js";
+import fs from 'fs'
+import { userRequest } from '../input.js'
+import { logger } from '../utils/logger.js'
+import { doTechEvangelistWork } from './work.js'
+import { speak } from '../utils/speak.js'
 
 export const doTechEvangelist = async () => {
-  logger("테크 에반젤리스트에 의한 기획서 보충이 진행 중입니다...");
-  speak("테크 에반젤리스트에 의한 기획서 보충이 진행 중입니다...");
+  logger('테크 에반젤리스트에 의한 기획서 보충이 진행 중입니다...')
+  speak('테크 에반젤리스트에 의한 기획서 보충이 진행 중입니다...')
 
-  const resultFolderPath = "./result";
-  const resultFiles = await fs.promises.readdir(resultFolderPath);
+  const resultFolderPath = './result'
+  const resultFiles = await fs.promises.readdir(resultFolderPath)
 
-  let architectHighestVersion = 0;
+  let architectHighestVersion = 0
   for (const resultFile of resultFiles) {
-    if (!resultFile.startsWith("architect-ver-")) continue;
-    const version = Number(resultFile.split("architect-ver-")[1].split(".")[0]);
+    if (!resultFile.startsWith('architect-ver-')) continue
+    const version = Number(resultFile.split('architect-ver-')[1].split('.')[0])
     if (version > architectHighestVersion) {
-      architectHighestVersion = version;
+      architectHighestVersion = version
     }
   }
 
-  const architectResultFilePath = `${resultFolderPath}/architect-ver-${architectHighestVersion}.txt`;
+  const architectResultFilePath = `${resultFolderPath}/architect-ver-${architectHighestVersion}.txt`
   const architect = await fs.promises.readFile(architectResultFilePath, {
-    encoding: "utf-8",
-  });
+    encoding: 'utf-8'
+  })
 
-  const evangelist = await doTechEvangelistWork(architect);
-  console.log(evangelist);
+  const evangelist = await doTechEvangelistWork(architect)
+  console.log(evangelist)
   await fs.promises.writeFile(
     `${resultFolderPath}/evangelist.txt`,
     `----USER REQUEST\n${userRequest}\n${evangelist}`
-  );
-  logger("테크 에반젤리스트에 의한 기획서 보충이 완료되었습니다.");
-  speak("테크 에반젤리스트에 의한 기획서 보충이 완료되었습니다.");
-};
+  )
+  logger('테크 에반젤리스트에 의한 기획서 보충이 완료되었습니다.')
+  speak('테크 에반젤리스트에 의한 기획서 보충이 완료되었습니다.')
+}

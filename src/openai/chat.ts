@@ -1,60 +1,60 @@
-import axios, { isAxiosError } from "axios";
-import axiosRetry from "axios-retry";
+import axios, { isAxiosError } from 'axios'
+import axiosRetry from 'axios-retry'
 
-import { logger } from "../utils/logger.js";
+import { logger } from '../utils/logger.js'
 export const openai = axios.create({
-  baseURL: "https://api.openai.com/v1",
+  baseURL: 'https://api.openai.com/v1',
   headers: {
-    "Content-Type": "application/json",
-    Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
-  },
-});
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${process.env.OPENAI_API_KEY}`
+  }
+})
 
 axiosRetry(openai, {
   retries: 3,
   retryCondition: (error) => {
-    logger(`네트워크 요청 불량으로 재시도 중입니다. (에러코드 ${error.code}}`);
-    return true;
-  },
-});
+    logger(`네트워크 요청 불량으로 재시도 중입니다. (에러코드 ${error.code}}`)
+    return true
+  }
+})
 
 export interface ChatMessage {
-  role: "user" | "assistant" | "system";
-  content: string;
+  role: 'user' | 'assistant' | 'system'
+  content: string
 }
 
 export const chat = async (option: {
-  messages: ChatMessage[];
-  nested?: number;
+  messages: ChatMessage[]
+  nested?: number
 }) => {
-  const { messages, nested } = option;
+  const { messages, nested } = option
 
   if (nested) {
-    logger(`현재 ${nested}번째 ChatGPT 로 이어지는 호출 중 입니다.`);
+    logger(`현재 ${nested}번째 ChatGPT 로 이어지는 호출 중 입니다.`)
     if (nested > 10) {
-      logger("debug", { messages });
-      throw new Error("ChatGPT 호출이 너무 많습니다.");
+      logger('debug', { messages })
+      throw new Error('ChatGPT 호출이 너무 많습니다.')
     }
   }
 
   try {
-    const { data } = await openai.post("/chat/completions", {
-      model: process.env.OPENAI_CHAT_MODEL ?? "gpt-3.5-turbo",
-      messages,
-    });
+    const { data } = await openai.post('/chat/completions', {
+      model: process.env.OPENAI_CHAT_MODEL ?? 'gpt-3.5-turbo',
+      messages
+    })
 
-    const answer = `${data.choices?.[0].message?.content ?? ""}`;
-    const finishReason = data.choices?.[0].finish_reason as string;
+    const answer = `${data.choices?.[0].message?.content ?? ''}`
+    const finishReason = data.choices?.[0].finish_reason as string
 
-    if (finishReason === "length") {
+    if (finishReason === 'length') {
       const addedChat = await chat({
-        messages: [...messages, { role: "assistant", content: answer }],
-        nested: nested ? nested + 1 : 1,
-      });
-      return answer + addedChat;
+        messages: [...messages, { role: 'assistant', content: answer }],
+        nested: nested ? nested + 1 : 1
+      })
+      return answer + addedChat
     }
 
-    return answer;
+    return answer
   } catch (error) {
     if (isAxiosError(error)) {
       logger(
@@ -66,8 +66,8 @@ export const chat = async (option: {
 3. Open A.I 서버 과부하 문제 ( ai.com 확인 )
 `,
         error.response.data
-      );
-      process.exit(1);
+      )
+      process.exit(1)
     }
   }
-};
+}

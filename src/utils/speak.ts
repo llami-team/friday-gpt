@@ -1,66 +1,66 @@
-import sdk from "microsoft-cognitiveservices-speech-sdk";
-import fs from "fs";
-import sound from "sound-play";
+import sdk from 'microsoft-cognitiveservices-speech-sdk'
+import fs from 'fs'
+import sound from 'sound-play'
 
-const speakQueue: string[] = [];
+const speakQueue: string[] = []
 
 export const speak = (text: string) => {
   if (speakQueue.length > 0) {
-    speakQueue.push(text);
+    speakQueue.push(text)
   } else {
-    speakQueue.push(text);
-    processQueue();
+    speakQueue.push(text)
+    processQueue()
   }
-};
+}
 
 export const processQueue = async () => {
   if (speakQueue.length > 0) {
-    const text = speakQueue[0];
-    await actualSpeak(text);
-    speakQueue.shift();
+    const text = speakQueue[0]
+    await actualSpeak(text)
+    speakQueue.shift()
 
-    await processQueue();
+    await processQueue()
   }
-};
+}
 
 export const actualSpeak = async (text: string) => {
   try {
     await new Promise<void>((resolve) => {
-      const audioFile = "./dist/_.wav";
+      const audioFile = './dist/_.wav'
       const speechConfig = sdk.SpeechConfig.fromSubscription(
         process.env.AZURE_SPEECH_KEY,
         process.env.AZURE_SPEECH_REGION
-      );
-      const audioConfig = sdk.AudioConfig.fromAudioFileOutput(audioFile);
-      speechConfig.speechSynthesisVoiceName = process.env.AZURE_SPEECH_VOICE;
+      )
+      const audioConfig = sdk.AudioConfig.fromAudioFileOutput(audioFile)
+      speechConfig.speechSynthesisVoiceName = process.env.AZURE_SPEECH_VOICE
 
-      let synthesizer = new sdk.SpeechSynthesizer(speechConfig, audioConfig);
+      let synthesizer = new sdk.SpeechSynthesizer(speechConfig, audioConfig)
 
       synthesizer.speakTextAsync(
         text,
         async (result) => {
-          synthesizer.close();
-          synthesizer = null;
+          synthesizer.close()
+          synthesizer = null
 
           if (result.reason === sdk.ResultReason.SynthesizingAudioCompleted) {
-            const absoultePath = fs.realpathSync(audioFile);
-            await sound.play(absoultePath, 1);
+            const absoultePath = fs.realpathSync(audioFile)
+            await sound.play(absoultePath, 1)
           } else {
             throw new Error(
-              "Speech synthesis canceled, " +
+              'Speech synthesis canceled, ' +
                 result.errorDetails +
-                "\nDid you set the speech resource key and region values?"
-            );
+                '\nDid you set the speech resource key and region values?'
+            )
           }
-          resolve();
+          resolve()
         },
         (err) => {
-          console.trace("err - " + err);
-          synthesizer.close();
-          synthesizer = null;
-          resolve();
+          console.trace('err - ' + err)
+          synthesizer.close()
+          synthesizer = null
+          resolve()
         }
-      );
-    });
+      )
+    })
   } catch (e) {}
-};
+}

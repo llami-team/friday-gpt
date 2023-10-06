@@ -80,7 +80,7 @@ AZURE_SPEECH_VOICE=ko-KR-SeoHyeonNeural
 
 ```ts
 export const userRequest =
-  "문자열로 두 개의 숫자 값을 입력 받아서 마치 사람이 계산하는 방법처럼 각 단위의 숫자를 비교해서 무제한 길이로 사칙연산을 할 수 있는 Typescript 라이브러리를 작성해줘";
+  '문자열로 두 개의 숫자 값을 입력 받아서 마치 사람이 계산하는 방법처럼 각 단위의 숫자를 비교해서 무제한 길이로 사칙연산을 할 수 있는 Typescript 라이브러리를 작성해줘'
 ```
 
 > 아래 명령어를 실행해서 A.I에게 요청을 보냅니다.
@@ -101,10 +101,9 @@ npm run dev 여러가지 순열들을 제공해주는 Typescript 라이브러리
 
 ## ✨ Special Thanks
 
-- ***[@antegral](https://github.com/antegral)*** 프라이데이 프로젝트를 위해 GPT-4 테스트 계정을 공유해주셨습니다 감사드립니다!
+- **_[@antegral](https://github.com/antegral)_** 프라이데이 프로젝트를 위해 GPT-4 테스트 계정을 공유해주셨습니다 감사드립니다!
 
 <br />
-
 
 ## ✅ 라이센스
 

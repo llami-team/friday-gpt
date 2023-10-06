@@ -1,4 +1,4 @@
-import { chat } from "../openai/chat.js";
+import { chat } from '../openai/chat.js'
 
 export const systemPrompt = `아래와 같은 사항을 준수해야합니다.
 * 당신은 프로그래밍 전 설계를 하는 아키텍트 역할을 진행합니다.
@@ -21,19 +21,19 @@ export const systemPrompt = `아래와 같은 사항을 준수해야합니다.
 ----PLAN
 계획 내용
 ----CAUTION
-주의 사항 내용`;
+주의 사항 내용`
 
 export const doArchitectThese = async (userRequest: string) => {
   return await chat({
     messages: [
       {
-        role: "system",
-        content: systemPrompt,
+        role: 'system',
+        content: systemPrompt
       },
       {
-        role: "user",
-        content: userRequest,
-      },
-    ],
-  });
-};
+        role: 'user',
+        content: userRequest
+      }
+    ]
+  })
+}

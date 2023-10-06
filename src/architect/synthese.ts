@@ -1,4 +1,4 @@
-import { chat } from "../openai/chat.js";
+import { chat } from '../openai/chat.js'
 
 export const systemPrompt = `아래와 같은 사항을 준수해야합니다.
 * 당신은 프로그램 개발 전 세운 계획의 반영사항을 합쳐서 재정리하는 역할을 진행합니다.
@@ -40,19 +40,19 @@ YES
 계획 내용
 ----CAUTION
 주의 사항 내용
-\`\`\``;
+\`\`\``
 
 export const doArchitectSynthese = async (userRequest: string) => {
   return await chat({
     messages: [
       {
-        role: "system",
-        content: systemPrompt,
+        role: 'system',
+        content: systemPrompt
       },
       {
-        role: "user",
-        content: userRequest,
-      },
-    ],
-  });
-};
+        role: 'user',
+        content: userRequest
+      }
+    ]
+  })
+}

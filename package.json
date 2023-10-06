@@ -15,7 +15,7 @@
     "programmer": "tsc && node -r dotenv/config dist/programmer.js",
     "reviewer": "tsc && node -r dotenv/config dist/reviewer.js",
     "new-tts": "tsc && node -r dotenv/config dist/azureSpeak.js",
-    "lint": "prettier --write . && eslint --fix",
+    "lint": "prettier --write .",
     "build": "tsc",
     "typecheck": "tsc",
     "release:patch": "npm run build && npm version patch && npm run build && npm publish && git push --follow-tags",
@@ -29,6 +29,7 @@
     "@types/node": "^18.15.11",
     "chalk": "^5.2.0",
     "dotenv": "^16.0.3",
+    "prettier": "^3.0.3",
     "release-it": "^16.2.1",
     "typescript": "^5.0.4"
   },
