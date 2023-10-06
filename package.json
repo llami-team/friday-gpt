@@ -1,7 +1,7 @@
 {
   "name": "friday-gpt",
   "description": "A.I 에게 R&R을 부여해서 프로그래밍 업무를 진행시킵니다.",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "index.js",
   "type": "module",
   "bin": {
