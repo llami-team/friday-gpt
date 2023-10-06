@@ -1,4 +1,6 @@
 import { cli } from "cleye";
+import { input } from "@inquirer/prompts";
+import { logger } from "./utils/logger.js";
 
 const argv = cli({
   name: "friday",
@@ -16,8 +18,14 @@ let userRequest = argv._.join(" ");
 
 // If userRequest is empty, use the provided default value
 if (userRequest === "") {
-  userRequest =
-    "키워드를 하나 입력받은다음 youtube.com 에서 해당 키워드의 영상 5개를 다운받는 프로그램을 Typescript 로 작성해줘";
+  userRequest = await input({
+    message: "A.I가 수행할 개발 업무 요청을 입력해주세요:",
+  });
+
+  if (userRequest === "") {
+    logger("요청이 없습니다. 프로그램을 종료합니다.");
+    process.exit(0);
+  }
 }
 
 export { userRequest };
