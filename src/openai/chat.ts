@@ -2,7 +2,6 @@ import axios, { isAxiosError } from "axios";
 import axiosRetry from "axios-retry";
 
 import { logger } from "../utils/logger.js";
-
 export const openai = axios.create({
   baseURL: "https://api.openai.com/v1",
   headers: {

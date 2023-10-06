@@ -1,12 +1,14 @@
 {
   "name": "friday-gpt",
   "description": "A.I 에게 R&R을 부여해서 프로그래밍 업무를 진행시킵니다.",
-  "private": true,
   "version": "0.0.1",
   "main": "index.js",
   "type": "module",
+  "bin": {
+    "friday-gpt": "bin/friday-gpt.js"
+  },
   "scripts": {
-    "start": "tsc && node -r dotenv/config dist/dev.js",
+    "start": "npm run build && ([ -d test-e2e ] || mkdir test-e2e) && cd test-e2e && node ../bin/friday-gpt",
     "dev": "tsc && node -r dotenv/config dist/dev.js",
     "architect": "tsc && node -r dotenv/config dist/architect.js",
     "evangelist": "tsc && node -r dotenv/config dist/evangelist.js",
@@ -15,6 +17,7 @@
     "new-tts": "tsc && node -r dotenv/config dist/azureSpeak.js",
     "lint:fix": "prettier --write . && eslint --fix",
     "lint": "prettier --check . && eslint",
+    "build": "tsc",
     "typecheck": "tsc",
     "release:patch": "npm run build && npm version patch && npm run build && npm publish && git push --follow-tags"
   },
