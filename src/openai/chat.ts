@@ -26,8 +26,13 @@ export interface ChatMessage {
 export const chat = async (option: {
   messages: ChatMessage[]
   nested?: number
+  functions?: {
+    name: string
+    description?: string
+    parameters: any
+  }[]
 }) => {
-  const { messages, nested } = option
+  const { messages, nested, functions } = option
 
   if (nested) {
     logger(`현재 ${nested}번째 ChatGPT 로 이어지는 호출 중 입니다.`)
@@ -40,7 +45,8 @@ export const chat = async (option: {
   try {
     const { data } = await openai.post('/chat/completions', {
       model: process.env.OPENAI_CHAT_MODEL ?? 'gpt-3.5-turbo',
-      messages
+      messages,
+      functions
     })
 
     const answer = `${data.choices?.[0].message?.content ?? ''}`
