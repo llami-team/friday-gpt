@@ -146,11 +146,21 @@ writeFileSync(
 
 export { userRequest }
 
+const draftCount = await input({
+  message: '초기 기획서를 몇 개까지 만들고 고민할지 입력해주세요:',
+  default: '3'
+})
+
+const maxMeetingCount = await input({
+  message: '기획서 보완을 위한 회의를 최대 몇 번까지 진행 할지 입력해주세요:',
+  default: '10'
+})
+
 export const countConfig = {
   architect: {
     // * 초기 기획서를 몇 개까지 만들고 고민할지 설정합니다.
-    draftCount: 3,
+    draftCount: parseInt(draftCount) || 3,
     // * 기획서 보완을 위한 회의를 최대 몇 번까지 진행 할지 설정합니다.
-    maxMeetingCount: 10
+    maxMeetingCount: parseInt(maxMeetingCount) || 10
   }
 }
