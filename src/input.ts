@@ -116,16 +116,40 @@ if (!isConfigFileExist) {
   }
 }
 
-// * If userRequest is empty, use the provided default value
-if (userRequest === '') {
-  userRequest = await input({
-    message: 'A.I가 수행할 개발 업무 요청을 입력해주세요:'
-  })
+// * Let the AI choose what to do
+const mode = (await select({
+  message: '인공지능에게 어떤 작업을 맡기시겠습니까?',
+  choices: [
+    {
+      name: '웹 리서치 (구글 등에서 인공지능이 대신 검색해줍니다.)',
+      value: 'research'
+    },
+    {
+      name: '프로그래밍 기획 (인공지능이 대신 개발 기획서를 작성해줍니다.)',
+      value: 'dev'
+    }
+  ]
+})) as 'research' | 'dev'
 
+if (mode === 'research') {
+  // * If userRequest is empty, use the provided default value
   if (userRequest === '') {
-    logger('요청이 없습니다. 프로그램을 종료합니다.')
-    process.exit(0)
+    userRequest = await input({
+      message: 'A.I가 수행할 리서치 내용을 입력해주세요:'
+    })
   }
+} else if (mode === 'dev') {
+  // * If userRequest is empty, use the provided default value
+  if (userRequest === '') {
+    userRequest = await input({
+      message: 'A.I가 수행할 개발 업무 요청을 입력해주세요:'
+    })
+  }
+}
+
+if (userRequest === '') {
+  logger('요청이 없습니다. 프로그램을 종료합니다.')
+  process.exit(0)
 }
 
 // * Save config file
@@ -144,7 +168,7 @@ writeFileSync(
   )
 )
 
-export { userRequest }
+export { userRequest, mode }
 
 const draftCount = await input({
   message: '초기 기획서를 몇 개까지 만들고 고민할지 입력해주세요:',
