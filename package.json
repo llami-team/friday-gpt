@@ -37,8 +37,10 @@
     "@inquirer/prompts": "^3.2.0",
     "axios": "^1.3.4",
     "axios-retry": "^3.4.0",
+    "cheerio": "^1.0.0-rc.12",
     "cleye": "^1.3.2",
     "microsoft-cognitiveservices-speech-sdk": "^1.27.0",
+    "puppeteer": "^21.3.8",
     "sound-play": "^1.1.0"
   },
   "release-it": {
